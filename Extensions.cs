@@ -7,17 +7,25 @@ namespace MediaStreamer.Logging
 {
     public static class Extensions
     {
+        private static SimpleLogger LoggerInstance { get;set; }
+        /// <summary>
+        /// Log statically using singleton logger instance
+        /// </summary>
+        /// <param name="message"></param>
+        public static void LogStatically(this string message)
+        {
+            if (LoggerInstance == null)
+                LoggerInstance = new SimpleLogger();
+            
+            LoggerInstance.LogInfo(message);
+        }
+
         public static void LogInConsoleAndDebug(string message)
         {
             Console.WriteLine(message);
             System.Diagnostics.Debug.WriteLine(message);
         }
-
-        public static void LogStatically(this string message)
-        {
-            new SimpleLogger().LogInfo(message);
-        }
-
+        
         public static Action<string> GetLogInfoOrReturnNull(this ILogger logger)
         {
             if (logger == null)

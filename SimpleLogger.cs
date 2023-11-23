@@ -2,13 +2,12 @@
 using StringExtensions;
 using System;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace MediaStreamer.Logging
 {
     public class SimpleLogger : ILogger
     {
-        public SimpleLogger(string file = null) 
+        public SimpleLogger() 
         {
             try
             {
@@ -31,7 +30,10 @@ namespace MediaStreamer.Logging
         ~SimpleLogger() => _sw.Close();
 
         public string filepath = 
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MediaStreamer.WPF.NetCore3_1", "Logs", "log.txt");
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), 
+                "MediaStreamer.WPF.NetCore3_1", "Logs", "log.txt"
+            );
         private StreamWriter _sw;
 
         public LogLevel LogLevel { get; set; } = LogLevel.Trace;
